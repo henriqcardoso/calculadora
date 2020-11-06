@@ -3,11 +3,13 @@ class CalcController {
     constructor(){
 
         this._locale = 'pt-BR';
-        this.displayCalcEl = document.querySelector("#display");
-        this.dateEl = document.querySelector("#data");
-        this.timeEl = document.querySelector("#hora");
-        this.currentDate;
+        this._displayCalcEl = document.querySelector("#display");
+        this._dateEl = document.querySelector("#data");
+        this._timeEl = document.querySelector("#hora");
+        this._currentDate;
         this.initialize();
+        this.initButtonsEvents()
+
     }
 
     initialize(){
@@ -21,30 +23,53 @@ class CalcController {
         }, 1000);
     }
 
+    addEventListenerAll(element, events, fn){
+        events.split(' ').forEach(event => {
+
+            element.addEventListener();
+
+        });
+    }
+
+    initButtonsEvents(){
+
+        let buttons = document.querySelectorAll("#buttons > g, #parts > g");
+
+        buttons.forEach((btn, index)=>{
+            this.addEventListenerAll("click drag", e => {
+
+                console.log(btn.className.baseVal.replace("btn-", ""));
+
+            });
+        });
+    }
+
+
+
     setDisplayDateTime(){
 
         this.displayDate = this.currentDate.toLocaleDateString(this._locale,{
             day: "2-digit",
-            month: "long",
+            month: "long",  //short para abreviar o mês
             year: "numeric"
         });
         this.displayTime = this.currentDate.toLocaleTimeString(this._locale);
 
     }
     get displayTime(){
-        return this.timeEl.innerHTML;
+        return this._timeEl.innerHTML;
     }
 
     set displayTime(value){
-        return this.timeEl.innerHTML = value;
+        return this._timeEl.innerHTML = value;
     }
 
     get displayDate(){
-        return this.dateEl.innerHTML;
+        return this._dateEl.innerHTML;
     }
 
     set displayDate(value){
-        return this.dateEl.innerHTML = value;
+        return this._dateEl.innerHTML = value;
     }
 
     get displayCalc(){
@@ -55,12 +80,12 @@ class CalcController {
         this._displayCalcEl.innerHTML = value;
     }
 
-    get dataAtual(){
+    get currentDate(){
         return new Date();
     }
 
-    set dataAtual(value){
-        this.currentDate = value;
+    set currentDate(value){
+        this._currentDate = value;
     }
 
 
