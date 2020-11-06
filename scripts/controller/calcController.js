@@ -1,6 +1,8 @@
 class CalcController {
 
-    constructor(){
+    constructor(){   /*O construtor é um método especial para criar e inicializar um objeto criado a partir de uma classe.
+                     Apenas um método especial com o nome constructor pode existir em uma classe.
+                     O erro SyntaxError será mostrado se a classe contiver mais de um método constructor.*/
 
         this._locale = 'pt-BR';
         this._displayCalcEl = document.querySelector("#display");
