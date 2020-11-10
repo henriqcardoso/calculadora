@@ -4,17 +4,17 @@ class CalcController {
                      Apenas um método especial com o nome constructor pode existir em uma classe.
                      O erro SyntaxError será mostrado se a classe contiver mais de um método constructor.*/
 
-        this._locale = 'pt-BR';
-        this._displayCalcEl = document.querySelector("#display");
-        this._dateEl = document.querySelector("#data");
-        this._timeEl = document.querySelector("#hora");
+        this._locale = 'pt-BR';// var q determina o local da data e hr 
+        this._displayCalcEl = document.querySelector("#display");// selecionando o display da calc
+        this._dateEl = document.querySelector("#data");// selecionando a data no display da cald
+        this._timeEl = document.querySelector("#hora");// selecionando hora no display da calc
         this._currentDate;
         this.initialize();
         this.initButtonsEvents()
 
     }
 
-    initialize(){
+    initialize(){ // aqui está o q acontecerá assim q chamarmos CalcController
        
         this.setDisplayDateTime();
 
@@ -48,7 +48,7 @@ class CalcController {
 
 
 
-    setDisplayDateTime(){
+    setDisplayDateTime(){ //atribuindo hr à calculadora
 
         this.displayDate = this.currentDate.toLocaleDateString(this._locale,{
             day: "2-digit",
@@ -58,21 +58,31 @@ class CalcController {
         this.displayTime = this.currentDate.toLocaleTimeString(this._locale);
 
     }
+
+    /* td atributo privado precisa de getter e setters, p/ ser definido cm o atributo será acessado
+    get é para requerir algum dado, alguem irá buscar um dado,
+    set é para atribuição de valor, alguem irá tribuir algum dado, por isso os parâmetros value entre
+    parênteses e utilizamos atribuição dos dados q irão entrar
+     */
     get displayTime(){
         return this._timeEl.innerHTML;
     }
 
     set displayTime(value){
-        return this._timeEl.innerHTML = value;
+        this._timeEl.innerHTML = value;
     }
+
+
 
     get displayDate(){
         return this._dateEl.innerHTML;
     }
 
     set displayDate(value){
-        return this._dateEl.innerHTML = value;
+        this._dateEl.innerHTML = value;
     }
+
+
 
     get displayCalc(){
         return this._displayCalcEl.innerHTML;
@@ -81,6 +91,8 @@ class CalcController {
     set displayCalc(value){
         this._displayCalcEl.innerHTML = value;
     }
+
+
 
     get currentDate(){
         return new Date();
