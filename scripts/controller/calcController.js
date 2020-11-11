@@ -4,6 +4,7 @@ class CalcController {
                      Apenas um método especial com o nome constructor pode existir em uma classe.
                      O erro SyntaxError será mostrado se a classe contiver mais de um método constructor.*/
 
+        this._operation = [];
         this._locale = 'pt-BR';// var q determina o local da data e hr 
         this._displayCalcEl = document.querySelector("#display");// selecionando o display da calc
         this._dateEl = document.querySelector("#data");// selecionando a data no display da cald
@@ -28,21 +29,95 @@ class CalcController {
     addEventListenerAll(element, events, fn){
         events.split(' ').forEach(event => {
 
-            element.addEventListener();
+            element.addEventListener(event, fn, false);
 
         });
     }
 
-    initButtonsEvents(){
+    clearAll(){
 
-        let buttons = document.querySelectorAll("#buttons > g, #parts > g");
+        this._operation = [];
+    }
+
+    clearEntry(){
+
+        this._operation.pop();
+
+    }
+
+    addOperation(value){
+
+        this._operation.push(value);
+    }
+
+    setError(){
+
+        this.displayCalc = "Error";
+    }
+    exexBtn(value){
+
+        switch (value) {
+
+            case 'ac':
+                this.clearAll();
+                break;
+            case 'ac':
+                this.clearAll();
+                break;
+            case 'soma':
+                break;
+                
+            case 'subtracao':
+                break;
+                
+            case 'divisao':
+                break;
+                
+            case 'multiplicacao':
+                break;
+                
+            case 'porcento':
+                break;
+                
+            case 'igual':
+                break;
+
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                this.addOperation(parseInte(value));
+                break;
+
+            default:
+                this.setError();
+                break;
+
+        }
+    }
+
+    initButtonsEvents(){ // criando eventos dos botoes
+
+        let buttons = document.querySelectorAll("#buttons > g, #parts > g");//#buttons > g, #parts > g "pegue tds as tags g q sao filhos de buttons"
 
         buttons.forEach((btn, index)=>{
-            this.addEventListenerAll("click drag", e => {
+            this.addEventListenerAll("click drag", e => { //criando evendo de click e drag 
 
-                console.log(btn.className.baseVal.replace("btn-", ""));
+                let textBtn = (btn.className.baseVal.replace("btn-", ""));// imprimindo no console o botao chamando ele pela classe, e estamos substituindo btn por um espaço vazio 
 
+                this.exexBtn(textBtn);
             });
+
+            this.addEventListenerAll(btn, "mouseover mouseup mousedown", e =>{
+
+                btn.stylt.cursor = "pointer";
+            })
         });
     }
 
