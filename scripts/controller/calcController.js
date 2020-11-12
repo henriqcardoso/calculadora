@@ -34,35 +34,42 @@ class CalcController {
         });
     }
 
-    clearAll(){
+    clearAll(){ // método p/ limpar a tela do display
 
         this._operation = [];
     }
 
-    clearEntry(){
+
+    clearEntry(){ // método p/limpar a ultima operaçao
 
         this._operation.pop();
 
     }
 
-    addOperation(value){
+    getLastOperation(){ // método p/pegar a ultima operaçao
+        return this._operation[this._operation.length-1]; //pegar ultima operação 
+    }
+
+
+    addOperation(value){// método p/ add operação, no switch os dados serão inseridos e vão por parametros e entram no array pelo push abaixo
 
         this._operation.push(value);
     }
 
-    setError(){
+    setError(){ // msg de erro
 
         this.displayCalc = "Error";
     }
+
     exexBtn(value){
 
         switch (value) {
 
             case 'ac':
-                this.clearAll();
+                this.clearAll(); // caso o botao ac seja clicado limpa td dislplay
                 break;
-            case 'ac':
-                this.clearAll();
+            case 'ce':
+                this.clearEntry(); // caso o botao ce seja clicado limpa a ultima entrada de dados
                 break;
             case 'soma':
                 break;
@@ -82,6 +89,10 @@ class CalcController {
             case 'igual':
                 break;
 
+            case 'ponto':
+
+                break;
+
             case '0':
             case '1':
             case '2':
@@ -92,7 +103,7 @@ class CalcController {
             case '7':
             case '8':
             case '9':
-                this.addOperation(parseInte(value));
+                this.addOperation(parseInt(value));// add números a operação, q no switch estão string e já mandaremos pro metodo addOperation como Interger
                 break;
 
             default:
