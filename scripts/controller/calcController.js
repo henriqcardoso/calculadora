@@ -47,13 +47,32 @@ class CalcController {
     }
 
     getLastOperation(){ // método p/pegar a ultima operaçao
-        return this._operation[this._operation.length-1]; //pegar ultima operação 
+        return this._operation[this._operation.length-1]; //pegar ultima operação | length-1 pega o último index do array
     }
 
+    isOperator (value) {
+
+        return (['+','-','*','%','/'].indexOf(value) > -1);
+        
+    }
 
     addOperation(value){// método p/ add operação, no switch os dados serão inseridos e vão por parametros e entram no array pelo push abaixo
 
-        this._operation.push(value);
+        if (isNaN(this.getLastOperation())) { 
+            // string
+            if (this.isOperator(value)) {
+                // Trocar operador
+                this._operation[this._operation.length-1] = value;
+
+            } else {
+                // outra coisa
+            }
+        } else {
+            // Number
+            let newValue = this.getLastOperation().toString() + value.toString();
+            this._operation.push(newValue); //add novo valor ao array operation
+        }
+
     }
 
     setError(){ // msg de erro
@@ -72,25 +91,30 @@ class CalcController {
                 this.clearEntry(); // caso o botao ce seja clicado limpa a ultima entrada de dados
                 break;
             case 'soma':
+                this.addOperation('+');
                 break;
-                
+                 
             case 'subtracao':
+                this.addOperation('-');
                 break;
-                
+
             case 'divisao':
+                this.addOperation('/');
                 break;
-                
+
             case 'multiplicacao':
+                this.addOperation('*');
                 break;
                 
             case 'porcento':
+                this.addOperation('%');
                 break;
                 
             case 'igual':
                 break;
 
             case 'ponto':
-
+                this.addOperation('.');
                 break;
 
             case '0':
